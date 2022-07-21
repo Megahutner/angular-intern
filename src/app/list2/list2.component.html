@@ -1,0 +1,47 @@
+
+<button routerLink ='add' mat-raised-button color="primary" ><mat-icon>add</mat-icon> Add User</button>
+<!--<button routerLink ='player' mat-raised-button color="primary" ><mat-icon>music_video</mat-icon></button>-->
+<mat-list>
+    <table>
+        <thead>
+            <tr>
+             
+                <th align="center" style ="width: 2%;border-right: 1px solid currentColor ">ID</th>
+                <th align="left" style ="width: 14% ">Name</th>
+                <th align="left" style ="width: 14% ">Email</th>
+                <th align="left" style ="width: 14% ">Address</th>
+                <th align="left" style ="width: 14% ">Occupation</th>
+                <th align="left" style ="width: 14% ">Password (Encoded)</th>
+                <th align="left" style ="width: 14% ">Date of birth</th>
+
+                
+                <th align="left" style ="width: 14% "></th>
+            </tr>
+        </thead>
+        <tbody>
+          
+           <tr *ngFor="let user of users">
+                <td align="center" style ="border-right: 1px solid currentColor; font-weight: bold;">{{user.id}}</td>
+                <td>{{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.address}}</td>
+                <td>{{user.option}}</td>
+                <td>{{encode(user.password)}}</td>
+                <td>{{user.date_of_birth| date:"longDate"}}</td>
+                
+                <td>
+                  <button routerLink="edit/{{user.id}}" mat-raised-button color="primary" matTooltip="Edit {{user.firstName}} {{user.lastName}} infomation" matTooltipPosition="before" style="width:33%"><mat-icon>edit</mat-icon></button>
+                  <button routerLink="view/{{user.id}}" mat-raised-button color="accent" matTooltip="View {{user.firstName}} {{user.lastName}} infomation" matTooltipPosition="above" style="width:33%"><mat-icon>pageview</mat-icon></button>
+                  <button (click)="deleteUser(user.id)" mat-raised-button color="warn" [disabled]="user.isDeleting" matTooltip="Delete {{user.firstName}} {{user.lastName}} information" matTooltipPosition="after" style="width:33%">
+                    <mat-spinner diameter="20" *ngIf="user.isDeleting"></mat-spinner>
+                    <span *ngIf="!user.isDeleting">X</span>
+                </button>
+                  </td>
+               
+            </tr>
+        </tbody>
+    </table>
+    </mat-list>
+    
+            
+        

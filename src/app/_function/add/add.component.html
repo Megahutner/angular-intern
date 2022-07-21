@@ -1,0 +1,17 @@
+<div class ="container">
+    <button routerLink ='' mat-raised-button color="primary" ><mat-icon>keyboard_backspace</mat-icon></button>  
+    <h1> Add new post</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmitted()">
+        <mat-form-field class="example-full-width">
+            <mat-label for="title">Title</mat-label>
+            <input matInput formControlName="title" id ="title" type="text" class="form-control">
+            
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label for="body">Body</mat-label>
+            <textarea matInput formControlName="body" id ="body" type="text" class="form-control" rows="10" cols="50"></textarea>
+            
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" >Add</button>
+    </form>
+</div>
