@@ -12,6 +12,7 @@ import { Options } from 'src/app/_models/options';
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
  
+   
     hide = true;
     options = Options;
     form!: FormGroup;
@@ -103,4 +104,10 @@ export class AddEditComponent implements OnInit {
     showHidePassword(){
         this.showPass = !this.showPass;
     }
+    //selectO(){
+      // this.selectedO = (event?.target as HTMLSelectElement).value
+       //if (this.selectedO === 'Other'){
+        //this.other = true;
+       //}
+    //}
 }

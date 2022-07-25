@@ -33,6 +33,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DxDataGridModule, DxButtonModule, DxSelectBoxModule } from 'devextreme-angular';
+import { DxDataGridComponent } from 'devextreme-angular';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 
 
 
@@ -51,6 +58,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     List2Component,
     HeaderComponent,
     FooterComponent,
+    
    
     
   ],
@@ -75,7 +83,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatNativeDateModule,
     MatTooltipModule,
     MatSelectModule,
-    MatToolbarModule,MatPaginatorModule
+    MatToolbarModule,MatPaginatorModule,
+    DxButtonModule,
+    DxDataGridModule,
+    DxSelectBoxModule,
+    MatSidenavModule
+    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     fakeBackendProvider
@@ -83,3 +96,4 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+platformBrowserDynamic().bootstrapModule(AppModule);

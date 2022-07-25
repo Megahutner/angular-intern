@@ -1,7 +1,163 @@
-
-<button routerLink ='add' mat-raised-button color="primary" ><mat-icon>add</mat-icon> Add User</button>
+<!--<i class="fa fa-user"></i>-->
 <!--<button routerLink ='player' mat-raised-button color="primary" ><mat-icon>music_video</mat-icon></button>-->
-<mat-list>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened class="mat-elevation-z8">
+    <button mat-button class="menu-button">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+    </button>
+    <button mat-button class="menu-button">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+    </button>
+    <button mat-button class="menu-button">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <button mat-button class="menu-button">
+        <mat-icon>help</mat-icon>
+        <span>Help</span>
+    </button>
+
+</mat-sidenav>
+  <mat-sidenav-content >
+    <!--<button routerLink ='add' mat-raised-button color="primary" ><mat-icon>add</mat-icon> Add User</button>-->
+    <div>
+    <dx-data-grid 
+        #grid 
+        id="grid-container"
+        [dataSource]="users"
+        keyExpr="id"
+        [showBorders]="true"
+        [showRowLines]="true"
+       [rtlEnabled]="true"
+        [selectedRowKeys] =[]
+        (onRowUpdated)="onRowUpdated($event)"
+        (onRowRemoved)="onRowRemoved($event)"
+        (onRowInserted)="onRowInserted($event)"
+   
+        [columnAutoWidth]="true"
+        style="width:100%"
+        [focusedRowEnabled]="true">
+
+        
+    <dxo-paging [enabled] ="false"></dxo-paging>
+    
+    <dxo-filter-row
+    [visible]="showFilterRow"
+    [applyFilter]="currentFilter"
+    ></dxo-filter-row>
+    <dxo-header-filter [visible]="showHeaderFilter"></dxo-header-filter>
+    <dxo-search-panel location ="before" [visible]="true" [width]="240" placeholder="search..."></dxo-search-panel>
+  
+    <dxo-selection mode="single"></dxo-selection>
+    <!--<dxo-master-detail [enabled]="false" template="detail"></dxo-master-detail>-->
+    <dxo-editing 
+        
+        [allowUpdating]="true"
+    
+        [allowAdding]="true"
+        [allowDeleting]="true"
+        [useIcons]="true"
+    
+        location="before"
+        mode="form"></dxo-editing>
+        <dxi-column  alignment="left" dataField ="date_of_birth"   dataType = 'date'  format="shortDate" caption = "Date of birth" >
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+      <dxi-column  alignment="left"dataField ="email" caption = "Email">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+        <dxi-validation-rule type="email"></dxi-validation-rule>
+    
+    </dxi-column>
+    <dxi-column alignment="left" dataField ="address" caption = "Address">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    
+    </dxi-column>
+    <dxi-column alignment="left" dataField ="option" caption = "Occupation" aria-colindex="4">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    <dxi-column alignment="left" dataField ="password" caption = "Password">
+      <dxi-validation-rule type="required"></dxi-validation-rule>    
+    </dxi-column>
+    <dxi-column alignment="left" dataField ="lastName" caption = "Last Name">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    
+    <dxi-column alignment="left" dataField ="firstName" caption = "First Name">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    </dxi-column>
+    
+    
+    
+       
+    
+    
+    
+    
+    <!--<div *dxTemplate ="let user of 'detail'">
+        <mat-card>
+            <mat-card-title>{{user.data.firstName}} {{user.data.lastName}}</mat-card-title>
+            <mat-card-content>Password(Encoded): {{encode(user.data.password)}}</mat-card-content>
+            <mat-card-content>Address: {{user.data.address}}</mat-card-content>
+            <mat-card-content>Email: {{user.data.email}}</mat-card-content>
+            <mat-card-content>Date of birth: {{user.data.date_of_birth| date:"M/d/YYYY"}}</mat-card-content>
+        </mat-card>
+    </div>-->
+    
+    
+    </dx-data-grid>
+    <div id="info" *ngIf="grid.selectedRowKeys.length">
+        
+      <mat-card>
+          <mat-card-title>{{grid.instance.getSelectedRowsData()[0].firstName}} {{grid.instance.getSelectedRowsData()[0].lastName}}</mat-card-title>
+          <mat-card-content>Password(Encoded): {{encode(grid.instance.getSelectedRowsData()[0].password)}}</mat-card-content>
+          <mat-card-content>Address: {{grid.instance.getSelectedRowsData()[0].address}}</mat-card-content>
+          <mat-card-content>Email: {{grid.instance.getSelectedRowsData()[0].email}}</mat-card-content>
+          <mat-card-content>Date of birth: {{grid.instance.getSelectedRowsData()[0].date_of_birth|date:"M/d/YYYY"}}</mat-card-content>
+      </mat-card>
+    </div>
+    
+    <!--  <div class="dx-field">
+        <div class="dx-field-value">
+          <dx-button
+            class="send"
+            icon="fa fa-remove"
+            text="Send"
+    >
+          </dx-button>
+        </div>
+      </div>-->
+    
+    </div>
+    <div>
+      
+      
+        
+      
+      <!--  <div class="dx-field">
+          <div class="dx-field-value">
+            <dx-button
+              class="send"
+              icon="fa fa-remove"
+              text="Send"
+      >
+            </dx-button>
+          </div>
+        </div>-->
+      
+      </div>
+      
+        
+          </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!--
+mat-list>
     <table>
         <thead>
             <tr>
@@ -22,19 +178,19 @@
           
            <tr *ngFor="let user of users">
                 <td align="center" style ="border-right: 1px solid currentColor; font-weight: bold;">{{user.id}}</td>
-                <td>{{user.firstName}} {{user.lastName}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.address}}</td>
-                <td>{{user.option}}</td>
-                <td>{{encode(user.password)}}</td>
-                <td>{{user.date_of_birth| date:"longDate"}}</td>
+                <td style ="border-bottom: 1px solid currentColor">{{user.firstName}} {{user.lastName}}</td>
+                <td style ="border-bottom: 1px solid currentColor">{{user.email}}</td>
+                <td style ="border-bottom: 1px solid currentColor">{{user.address}}</td>
+                <td style ="border-bottom: 1px solid currentColor">{{user.option}}</td>
+                <td style ="border-bottom: 1px solid currentColor">{{encode(user.password)}}</td>
+                <td style ="border-bottom: 1px solid currentColor">{{user.date_of_birth| date:"longDate"}}</td>
                 
                 <td>
                   <button routerLink="edit/{{user.id}}" mat-raised-button color="primary" matTooltip="Edit {{user.firstName}} {{user.lastName}} infomation" matTooltipPosition="before" style="width:33%"><mat-icon>edit</mat-icon></button>
                   <button routerLink="view/{{user.id}}" mat-raised-button color="accent" matTooltip="View {{user.firstName}} {{user.lastName}} infomation" matTooltipPosition="above" style="width:33%"><mat-icon>pageview</mat-icon></button>
                   <button (click)="deleteUser(user.id)" mat-raised-button color="warn" [disabled]="user.isDeleting" matTooltip="Delete {{user.firstName}} {{user.lastName}} information" matTooltipPosition="after" style="width:33%">
                     <mat-spinner diameter="20" *ngIf="user.isDeleting"></mat-spinner>
-                    <span *ngIf="!user.isDeleting">X</span>
+                    <fa-icon [icon]="faXmark"></fa-icon>
                 </button>
                   </td>
                
@@ -42,6 +198,5 @@
         </tbody>
     </table>
     </mat-list>
-    
-            
+-->            
         

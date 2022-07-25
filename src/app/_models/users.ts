@@ -8,5 +8,17 @@ export class User {
     option!: string;
     date_of_birth!: Date;
     password!: string;
-    isDeleting: boolean = false;
 }
+
+//const users: User[]=[{
+  //  id:'1',
+   // title:'Mr',
+    //firstName:'A',
+    //lastName:'B',
+    //email:'abc@gmail.com',
+    //address:'',
+    //option:'',
+    //date_of_birth:"'2022-03-11'",
+    //password:'',
+
+//}]
