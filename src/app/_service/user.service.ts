@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models';
+import { State, states } from '../_models';
 
 const apiUrl = 'http://localhost:4000/users';
 //const baseUrl = `${environment.apiUrl}/users`;
@@ -13,6 +14,9 @@ export class UserService {
 
   getAll() {
     return this.http.get<User[]>(apiUrl);
+  }
+  getLookup(){
+    return 
   }
 
   getById(id: any) {

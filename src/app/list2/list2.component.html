@@ -10,9 +10,9 @@
         <mat-icon>person</mat-icon>
         <span>Profile</span>
     </button>
-    <button mat-button class="menu-button">
-        <mat-icon>info</mat-icon>
-        <span>About</span>
+    <button routerLink='list'mat-button class="menu-button">
+        <mat-icon>list</mat-icon>
+        <span>List</span>
     </button>
 
     <mat-divider></mat-divider>
@@ -24,6 +24,7 @@
 
 </mat-sidenav>
   <mat-sidenav-content >
+    
     <!--<button routerLink ='add' mat-raised-button color="primary" ><mat-icon>add</mat-icon> Add User</button>-->
     <div>
     <dx-data-grid 
@@ -32,16 +33,15 @@
         [dataSource]="users"
         keyExpr="id"
         [showBorders]="true"
-        [showRowLines]="true"
-       [rtlEnabled]="true"
         [selectedRowKeys] =[]
         (onRowUpdated)="onRowUpdated($event)"
         (onRowRemoved)="onRowRemoved($event)"
         (onRowInserted)="onRowInserted($event)"
-   
         [columnAutoWidth]="true"
         style="width:100%"
-        [focusedRowEnabled]="true">
+        [focusedRowEnabled]="true"
+        [showColumnLines]="true"
+        >
 
         
     <dxo-paging [enabled] ="false"></dxo-paging>
@@ -51,12 +51,12 @@
     [applyFilter]="currentFilter"
     ></dxo-filter-row>
     <dxo-header-filter [visible]="showHeaderFilter"></dxo-header-filter>
-    <dxo-search-panel location ="before" [visible]="true" [width]="240" placeholder="search..."></dxo-search-panel>
+    <dxo-search-panel location ="before" [visible]="true" [width]="240" placeholder="Search"></dxo-search-panel>
   
     <dxo-selection mode="single"></dxo-selection>
     <!--<dxo-master-detail [enabled]="false" template="detail"></dxo-master-detail>-->
     <dxo-editing 
-        
+    
         [allowUpdating]="true"
     
         [allowAdding]="true"
@@ -64,8 +64,28 @@
         [useIcons]="true"
     
         location="before"
-        mode="form"></dxo-editing>
-        <dxi-column  alignment="left" dataField ="date_of_birth"   dataType = 'date'  format="shortDate" caption = "Date of birth" >
+        mode="popup">   
+       <dxo-popup title ='Editing'
+        [resizeEnabled]="true"
+        [showTitle]="true"
+        [width]="700"
+        [height]="525"></dxo-popup>
+      <dxo-form>
+        <dxi-item itemType="group" [colCount]="2"[colSpan]="2">
+        <dxi-item dataField="firstName"></dxi-item>
+        <dxi-item dataField="lastName"></dxi-item>
+        <dxi-item dataField="option"></dxi-item>
+        <dxi-item dataField="email"></dxi-item>
+        <dxi-item dataField="address"></dxi-item>
+        <dxi-item dataField="date_of_birth"></dxi-item>
+        
+        </dxi-item>
+      </dxo-form></dxo-editing>
+      <dxo-grouping [autoExpandAll]="expanded"></dxo-grouping>
+  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+  <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    
+       <!-- <dxi-column  alignment="left" dataField ="date_of_birth"   dataType = 'date'  format="shortDate" caption = "Date of birth" >
           <dxi-validation-rule type="required"></dxi-validation-rule>
       </dxi-column>
       <dxi-column  alignment="left"dataField ="email" caption = "Email">
@@ -78,18 +98,41 @@
     
     </dxi-column>
     <dxi-column alignment="left" dataField ="option" caption = "Occupation" aria-colindex="4">
+      <dxo-lookup [dataSource]="states" displayExpr="Name" valueExpr="ID"></dxo-lookup>
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
-    <dxi-column alignment="left" dataField ="password" caption = "Password">
-      <dxi-validation-rule type="required"></dxi-validation-rule>    
-    </dxi-column>
+    
     <dxi-column alignment="left" dataField ="lastName" caption = "Last Name">
       <dxi-validation-rule type="required"></dxi-validation-rule>
     </dxi-column>
     
     <dxi-column alignment="left" dataField ="firstName" caption = "First Name">
         <dxi-validation-rule type="required"></dxi-validation-rule>
-    </dxi-column>
+    </dxi-column>-->
+    <dxi-column alignment="left" dataField ="firstName" caption = "First Name">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column alignment="left" dataField ="lastName" caption = "Last Name">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column alignment="left" dataField ="option" caption = "Occupation"     [groupIndex]="0"
+  >
+    <dxo-lookup [dataSource]="states" displayExpr="Name" valueExpr="ID"></dxo-lookup>
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column alignment="left" dataField ="address" caption = "Address">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+  
+  </dxi-column>
+  <dxi-column  alignment="left"dataField ="email" caption = "Email">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxi-validation-rule type="email"></dxi-validation-rule>
+
+</dxi-column>
+<dxi-column  alignment="left" dataField ="date_of_birth"   dataType = 'date'  format="shortDate" caption = "Date of birth" >
+  <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+  
     
     
     
@@ -110,9 +153,42 @@
     
     
     </dx-data-grid>
+  <!-- <dxo-toolbar>
+   <dxi-item location="before">
+        <div *dxTemplate class="Occupation">
+          <h2 class="count">{{totalCount}}</h2>
+          <span class="name">Total Count</span>
+        </div>
+      </dxi-item>
+      <dxi-item location="before">
+        <div *dxTemplate>
+          <dx-select-box
+          widht="225"
+          [items]="groupingValue"
+          displayExpr="text"
+          valueExpr="value"
+          value="option"
+          (onValueChnaged)="groupChanged($event)"></dx-select-box>"
+        </div>
+      </dxi-item>
+      <dxi-item location="before">
+        <div *dxTemplate>
+          <dx-button [text]="this.expanded ? 'Collapse All' :'Expand All'"
+          width="136"
+          (click)="collapseAllClick($event)"></dx-button>
+        </div>
+      </dxi-item>-
+      <dxi-item location="after">
+        <div *dxTemplate>
+          <dx-button icon="refresh" (click)="refreshDataGrid($event)"></dx-button>
+        </div>
+      </dxi-item>
+      <dxi-item name="columnChooseButton"></dxi-item>
+    </dxo-toolbar>--> 
     <div id="info" *ngIf="grid.selectedRowKeys.length">
         
       <mat-card>
+        <button class="collapseButton" mat-button  mat-raised-button="primary" (click)="grid.selectedRowKeys.length=0"><mat-icon>remove</mat-icon></button>
           <mat-card-title>{{grid.instance.getSelectedRowsData()[0].firstName}} {{grid.instance.getSelectedRowsData()[0].lastName}}</mat-card-title>
           <mat-card-content>Password(Encoded): {{encode(grid.instance.getSelectedRowsData()[0].password)}}</mat-card-content>
           <mat-card-content>Address: {{grid.instance.getSelectedRowsData()[0].address}}</mat-card-content>
@@ -120,6 +196,36 @@
           <mat-card-content>Date of birth: {{grid.instance.getSelectedRowsData()[0].date_of_birth|date:"M/d/YYYY"}}</mat-card-content>
       </mat-card>
     </div>
+
+
+    <dx-data-grid 
+        #grid 
+        id="grid-container"
+        [dataSource]="posts"
+        keyExpr="id"
+        [showBorders]="true"
+        [selectedRowKeys] =[]
+        (onRowUpdated)="onRowUpdated($event)"
+        (onRowRemoved)="onRowRemoved($event)"
+        (onRowInserted)="onRowInserted($event)"
+        [columnAutoWidth]="true"
+        style="width:100%"
+        [focusedRowEnabled]="true"
+        [showColumnLines]="true"
+        ><dxi-column alignment="left" dataField ="id" caption = "ID">
+        
+      </dxi-column>
+      <dxi-column alignment="left" dataField ="title" caption = "Locker ID">
+        
+      </dxi-column>
+      <dxi-column alignment="left" dataField ="name" caption = "Serial Name">
+        
+      </dxi-column>
+      <dxi-column alignment="left" dataField ="hardware_address" caption = "Hardware Address">
+        
+      </dxi-column>
+    
+        </dx-data-grid>
     
     <!--  <div class="dx-field">
         <div class="dx-field-value">

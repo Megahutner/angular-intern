@@ -4,12 +4,21 @@
 
 export const environment = {
   production: false,
-  auth0:{
-    clientID:"[YOUR_AUTH0_CLIENT_ID]",
-    domain:"[YOUR_AUTH0_DOMAIN]",
-    redirectedURL:"http://localhost:4200",
-    logoutURL: "http://localhost:4200"
-  }
+apiUrl:'http://vendingmachine-api.dotnet.speranzainc.net/',
+serverApi:'http://apiregencity.openstack.speranzainc.net/'
+
+
+
+
+
+
+
+  // auth0:{
+  //   clientID:"[YOUR_AUTH0_CLIENT_ID]",
+  //   domain:"[YOUR_AUTH0_DOMAIN]",
+  //   redirectedURL:"http://localhost:4200",
+  //   logoutURL: "http://localhost:4200"
+  // }
 };
 
 /*

@@ -33,3 +33,11 @@ mat-sidenav {
 mat-sidenav-container {
     height: calc(100vh - 65px);
 }
+
+.collapseButton{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    border: 3px solid #004a9f;
+}
+

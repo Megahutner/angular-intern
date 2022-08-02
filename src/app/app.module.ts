@@ -35,9 +35,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DxDataGridModule, DxButtonModule, DxSelectBoxModule } from 'devextreme-angular';
-import { DxDataGridComponent } from 'devextreme-angular';
+import { DxDataGridModule, DxButtonModule, DxSelectBoxModule, DxPopupModule,DxTemplateModule } from 'devextreme-angular';
+import { DxDataGridComponent, DxPopupComponent } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
@@ -87,7 +88,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     DxButtonModule,
     DxDataGridModule,
     DxSelectBoxModule,
-    MatSidenavModule
+    MatSidenavModule,
+    DxPopupModule,DxTemplateModule,FontAwesomeModule
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
